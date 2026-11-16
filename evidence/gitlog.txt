@@ -1,0 +1,6 @@
+a645df3 Document Windows setup API routes and testing workflow
+b32a287 Add isolated API and asynchronous integration tests
+bbe7e1f Add concurrent HTTPX client with retry timeout and semaphore
+e866a1e Implement FastAPI student and group REST endpoints
+33e1613 Define Pydantic validation and response schemas
+8fdcdfe Carry forward student persistence layer and database tests

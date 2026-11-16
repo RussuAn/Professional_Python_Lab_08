@@ -1,0 +1,62 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-9.0.2, pluggy-1.6.0 -- /opt/pyvenv/bin/python3
+cachedir: .pytest_cache
+metadata: {'Python': '3.13.5', 'Platform': 'Linux-6.18.57-x86_64-with-glibc2.41', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.13.0', 'ddtrace': '4.4.0', 'Faker': '40.1.2', 'asyncio': '1.3.0', 'cov': '7.0.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}, 'PLATFORM': 'linux/amd64', 'CI': 'true'}
+rootdir: /mnt/data/Lab_08_variant_1
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.13.0, ddtrace-4.4.0, Faker-40.1.2, asyncio-1.3.0, cov-7.0.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 49 items
+
+tests/test_api.py::test_health PASSED                                    [  2%]
+tests/test_api.py::test_create_and_list_groups PASSED                    [  4%]
+tests/test_api.py::test_duplicate_group_409 PASSED                       [  6%]
+tests/test_api.py::test_bad_group_validation PASSED                      [  8%]
+tests/test_api.py::test_student_crud PASSED                              [ 10%]
+tests/test_api.py::test_get_students_filters PASSED                      [ 12%]
+tests/test_api.py::test_group_statistics PASSED                          [ 14%]
+tests/test_api.py::test_best_student PASSED                              [ 16%]
+tests/test_api.py::test_empty_statistics PASSED                          [ 18%]
+tests/test_api.py::test_not_found PASSED                                 [ 20%]
+tests/test_api.py::test_invalid_grade_and_name PASSED                    [ 22%]
+tests/test_api.py::test_nonexistent_group_and_update PASSED              [ 24%]
+tests/test_api.py::test_bad_query PASSED                                 [ 26%]
+tests/test_api.py::test_openapi_docs PASSED                              [ 28%]
+tests/test_external_api.py::test_async_transport_success PASSED          [ 30%]
+tests/test_external_api.py::test_retry_eventually_succeeds PASSED        [ 32%]
+tests/test_external_api.py::test_retry_fails_after_limit PASSED          [ 34%]
+tests/test_external_api.py::test_client_error_not_retried PASSED         [ 36%]
+tests/test_external_api.py::test_request_error_retried PASSED            [ 38%]
+tests/test_external_api.py::test_timeout_is_enforced PASSED              [ 40%]
+tests/test_external_api.py::test_gather_limits_concurrency PASSED        [ 42%]
+tests/test_external_api.py::test_group_statistics_with_asgi_client PASSED [ 44%]
+tests/test_external_api.py::test_invalid_retry_options[kwargs0] PASSED   [ 46%]
+tests/test_external_api.py::test_invalid_retry_options[kwargs1] PASSED   [ 48%]
+tests/test_external_api.py::test_invalid_retry_options[kwargs2] PASSED   [ 51%]
+tests/test_external_api.py::test_invalid_semaphore PASSED                [ 53%]
+tests/test_migrations.py::test_alembic_upgrade_and_downgrade PASSED      [ 55%]
+tests/test_repositories.py::test_create_read_student PASSED              [ 57%]
+tests/test_repositories.py::test_list_students PASSED                    [ 59%]
+tests/test_repositories.py::test_update_grade PASSED                     [ 61%]
+tests/test_repositories.py::test_delete_student PASSED                   [ 63%]
+tests/test_repositories.py::test_get_missing_student PASSED              [ 65%]
+tests/test_repositories.py::test_group_crud PASSED                       [ 67%]
+tests/test_repositories.py::test_group_list PASSED                       [ 69%]
+tests/test_repositories.py::test_find_surname PASSED                     [ 71%]
+tests/test_repositories.py::test_filter_by_group PASSED                  [ 73%]
+tests/test_repositories.py::test_best_student PASSED                     [ 75%]
+tests/test_repositories.py::test_average PASSED                          [ 77%]
+tests/test_repositories.py::test_group_statistics PASSED                 [ 79%]
+tests/test_repositories.py::test_db_api_parameterized PASSED             [ 81%]
+tests/test_repositories.py::test_successful_transfer PASSED              [ 83%]
+tests/test_repositories.py::test_transfer_rollback PASSED                [ 85%]
+tests/test_repositories.py::test_unknown_target_rolls_back PASSED        [ 87%]
+tests/test_repositories.py::test_invalid_grade PASSED                    [ 89%]
+tests/test_repositories.py::test_empty_names PASSED                      [ 91%]
+tests/test_repositories.py::test_restrict_delete_group PASSED            [ 93%]
+tests/test_repositories.py::test_unique_group PASSED                     [ 95%]
+tests/test_repositories.py::test_unique_email PASSED                     [ 97%]
+tests/test_repositories.py::test_grade_database_constraint PASSED        [100%]
+
+============================== 49 passed in 2.69s ==============================

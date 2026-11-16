@@ -1,0 +1,11 @@
+POST   /groups                    201
+POST   /groups                    201
+POST   /students                  201
+POST   /students                  201
+POST   /students                  201
+GET    /students                  200
+GET    /groups/1/statistics       200
+GET    /students/best             200
+GET    /students                  200
+GET    /openapi.json              200
+GROUP_STATISTICS {"id": 3, "first_name": "Данило", "last_name": "Левицький", "group_id": 2, "average_grade": 95.0, "email": null}

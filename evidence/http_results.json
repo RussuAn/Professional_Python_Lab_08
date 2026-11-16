@@ -1,0 +1,867 @@
+[
+  {
+    "method": "POST",
+    "path": "/groups",
+    "status": 201,
+    "response": {
+      "id": 1,
+      "name": "ФЕП-32"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/groups",
+    "status": 201,
+    "response": {
+      "id": 2,
+      "name": "ФЕП-31"
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/students",
+    "status": 201,
+    "response": {
+      "id": 1,
+      "first_name": "Марія",
+      "last_name": "Дорош",
+      "group_id": 1,
+      "average_grade": 86.5,
+      "email": null
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/students",
+    "status": 201,
+    "response": {
+      "id": 2,
+      "first_name": "Соломія",
+      "last_name": "Климчук",
+      "group_id": 1,
+      "average_grade": 91.5,
+      "email": null
+    }
+  },
+  {
+    "method": "POST",
+    "path": "/students",
+    "status": 201,
+    "response": {
+      "id": 3,
+      "first_name": "Данило",
+      "last_name": "Левицький",
+      "group_id": 2,
+      "average_grade": 95.0,
+      "email": null
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/students",
+    "status": 200,
+    "response": [
+      {
+        "id": 1,
+        "first_name": "Марія",
+        "last_name": "Дорош",
+        "group_id": 1,
+        "average_grade": 86.5,
+        "email": null
+      },
+      {
+        "id": 2,
+        "first_name": "Соломія",
+        "last_name": "Климчук",
+        "group_id": 1,
+        "average_grade": 91.5,
+        "email": null
+      },
+      {
+        "id": 3,
+        "first_name": "Данило",
+        "last_name": "Левицький",
+        "group_id": 2,
+        "average_grade": 95.0,
+        "email": null
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/groups/1/statistics",
+    "status": 200,
+    "response": {
+      "group_id": 1,
+      "students_count": 2,
+      "average_grade": 89.0,
+      "best_student": {
+        "id": 2,
+        "first_name": "Соломія",
+        "last_name": "Климчук",
+        "group_id": 1,
+        "average_grade": 91.5,
+        "email": null
+      }
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/students/best",
+    "status": 200,
+    "response": {
+      "id": 3,
+      "first_name": "Данило",
+      "last_name": "Левицький",
+      "group_id": 2,
+      "average_grade": 95.0,
+      "email": null
+    }
+  },
+  {
+    "method": "GET",
+    "path": "/students",
+    "status": 200,
+    "response": [
+      {
+        "id": 1,
+        "first_name": "Марія",
+        "last_name": "Дорош",
+        "group_id": 1,
+        "average_grade": 86.5,
+        "email": null
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/openapi.json",
+    "status": 200,
+    "response": {
+      "openapi": "3.1.0",
+      "info": {
+        "title": "Student Manager REST API",
+        "version": "0.8.0"
+      },
+      "paths": {
+        "/health": {
+          "get": {
+            "summary": "Health",
+            "operationId": "health_health_get",
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object",
+                      "title": "Response Health Health Get"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/groups": {
+          "get": {
+            "summary": "List Groups",
+            "operationId": "list_groups_groups_get",
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "items": {
+                        "$ref": "#/components/schemas/GroupResponse"
+                      },
+                      "type": "array",
+                      "title": "Response List Groups Groups Get"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "post": {
+            "summary": "Create Group",
+            "operationId": "create_group_groups_post",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GroupCreate"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "201": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/GroupResponse"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/students": {
+          "get": {
+            "summary": "List Students",
+            "operationId": "list_students_students_get",
+            "parameters": [
+              {
+                "name": "group_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Group Id"
+                }
+              },
+              {
+                "name": "last_name",
+                "in": "query",
+                "required": false,
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Last Name"
+                }
+              },
+              {
+                "name": "min_grade",
+                "in": "query",
+                "required": false,
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "maximum": 100,
+                      "minimum": 0
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Min Grade"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StudentResponse"
+                      },
+                      "title": "Response List Students Students Get"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "post": {
+            "summary": "Create Student",
+            "operationId": "create_student_students_post",
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StudentCreate"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/StudentResponse"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/students/best": {
+          "get": {
+            "summary": "Best Student",
+            "operationId": "best_student_students_best_get",
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/StudentResponse"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "title": "Response Best Student Students Best Get"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/students/{student_id}": {
+          "get": {
+            "summary": "Get Student",
+            "operationId": "get_student_students__student_id__get",
+            "parameters": [
+              {
+                "name": "student_id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "title": "Student Id"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/StudentResponse"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "patch": {
+            "summary": "Patch Student",
+            "operationId": "patch_student_students__student_id__patch",
+            "parameters": [
+              {
+                "name": "student_id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "title": "Student Id"
+                }
+              }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StudentUpdate"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/StudentResponse"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete Student",
+            "operationId": "delete_student_students__student_id__delete",
+            "parameters": [
+              {
+                "name": "student_id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "title": "Student Id"
+                }
+              }
+            ],
+            "responses": {
+              "204": {
+                "description": "Successful Response"
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/groups/{group_id}/students": {
+          "get": {
+            "summary": "Group Students",
+            "operationId": "group_students_groups__group_id__students_get",
+            "parameters": [
+              {
+                "name": "group_id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "title": "Group Id"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StudentResponse"
+                      },
+                      "title": "Response Group Students Groups  Group Id  Students Get"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/groups/{group_id}/statistics": {
+          "get": {
+            "summary": "Group Statistics",
+            "operationId": "group_statistics_groups__group_id__statistics_get",
+            "parameters": [
+              {
+                "name": "group_id",
+                "in": "path",
+                "required": true,
+                "schema": {
+                  "type": "integer",
+                  "title": "Group Id"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Successful Response",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/GroupStatistics"
+                    }
+                  }
+                }
+              },
+              "422": {
+                "description": "Validation Error",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "$ref": "#/components/schemas/HTTPValidationError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "components": {
+        "schemas": {
+          "GroupCreate": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 50,
+                "minLength": 1,
+                "title": "Name"
+              }
+            },
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "title": "GroupCreate"
+          },
+          "GroupResponse": {
+            "properties": {
+              "id": {
+                "type": "integer",
+                "title": "Id"
+              },
+              "name": {
+                "type": "string",
+                "title": "Name"
+              }
+            },
+            "type": "object",
+            "required": [
+              "id",
+              "name"
+            ],
+            "title": "GroupResponse"
+          },
+          "GroupStatistics": {
+            "properties": {
+              "group_id": {
+                "type": "integer",
+                "title": "Group Id"
+              },
+              "students_count": {
+                "type": "integer",
+                "title": "Students Count"
+              },
+              "average_grade": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Average Grade"
+              },
+              "best_student": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/StudentResponse"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object",
+            "required": [
+              "group_id",
+              "students_count",
+              "average_grade",
+              "best_student"
+            ],
+            "title": "GroupStatistics"
+          },
+          "HTTPValidationError": {
+            "properties": {
+              "detail": {
+                "items": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "type": "array",
+                "title": "Detail"
+              }
+            },
+            "type": "object",
+            "title": "HTTPValidationError"
+          },
+          "StudentCreate": {
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 2,
+                "title": "First Name"
+              },
+              "last_name": {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 2,
+                "title": "Last Name"
+              },
+              "group_id": {
+                "type": "integer",
+                "exclusiveMinimum": 0.0,
+                "title": "Group Id"
+              },
+              "average_grade": {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0,
+                "title": "Average Grade"
+              },
+              "email": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Email"
+              }
+            },
+            "type": "object",
+            "required": [
+              "first_name",
+              "last_name",
+              "group_id",
+              "average_grade"
+            ],
+            "title": "StudentCreate"
+          },
+          "StudentResponse": {
+            "properties": {
+              "id": {
+                "type": "integer",
+                "title": "Id"
+              },
+              "first_name": {
+                "type": "string",
+                "title": "First Name"
+              },
+              "last_name": {
+                "type": "string",
+                "title": "Last Name"
+              },
+              "group_id": {
+                "type": "integer",
+                "title": "Group Id"
+              },
+              "average_grade": {
+                "type": "number",
+                "title": "Average Grade"
+              },
+              "email": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Email"
+              }
+            },
+            "type": "object",
+            "required": [
+              "id",
+              "first_name",
+              "last_name",
+              "group_id",
+              "average_grade",
+              "email"
+            ],
+            "title": "StudentResponse"
+          },
+          "StudentUpdate": {
+            "properties": {
+              "first_name": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "First Name"
+              },
+              "last_name": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 2
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Last Name"
+              },
+              "group_id": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0.0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Group Id"
+              },
+              "average_grade": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "maximum": 100.0,
+                    "minimum": 0.0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Average Grade"
+              },
+              "email": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 255
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Email"
+              }
+            },
+            "type": "object",
+            "title": "StudentUpdate"
+          },
+          "ValidationError": {
+            "properties": {
+              "loc": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ]
+                },
+                "type": "array",
+                "title": "Location"
+              },
+              "msg": {
+                "type": "string",
+                "title": "Message"
+              },
+              "type": {
+                "type": "string",
+                "title": "Error Type"
+              },
+              "input": {
+                "title": "Input"
+              },
+              "ctx": {
+                "type": "object",
+                "title": "Context"
+              }
+            },
+            "type": "object",
+            "required": [
+              "loc",
+              "msg",
+              "type"
+            ],
+            "title": "ValidationError"
+          }
+        }
+      }
+    }
+  }
+]
